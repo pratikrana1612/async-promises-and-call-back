@@ -6,7 +6,7 @@ const getPosition = (opts) => {
     navigator.geolocation.getCurrentPosition((success) => {
       resolve(success);
     }, (error) => {
-
+      reject(error)
     },opts);
   });
 
@@ -36,10 +36,14 @@ function trackUserHandler() {
     positionData = posdata;
     //  setTimer(2000).then(data => console.log(data));
     return setTimer(2000);
-    }
-  ).then(data => {
-    console.log(positionData,data);
+    },//err => {console.log(err);}
+  ).catch(err => {
+    console.log(err);
+    return 'on we go..';
   })
+  .then(data => {
+    console.log(positionData,data);
+  }).catch();
   setTimer(1000).then(() => console.log("It's Finally done ok!"));
   console.log('Getting Position...');
 }
